@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import type { User } from '../types';
-import { apiService } from '../services/api';
+import { useState } from "react";
+import type { User } from "../types";
+import { apiService } from "../services/api";
 
 interface CreateGroupModalProps {
   currentUser: User;
@@ -8,15 +8,19 @@ interface CreateGroupModalProps {
   onGroupCreated: (group: any) => void;
 }
 
-export default function CreateGroupModal({ currentUser, onClose, onGroupCreated }: CreateGroupModalProps) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+export default function CreateGroupModal({
+  currentUser,
+  onClose,
+  onGroupCreated,
+}: CreateGroupModalProps) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -27,30 +31,42 @@ export default function CreateGroupModal({ currentUser, onClose, onGroupCreated 
       });
       onGroupCreated(group);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create group');
+      setError(err instanceof Error ? err.message : "Failed to create group");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div className="max-w-md w-full rounded-lg border border-neutral-800 bg-neutral-900 p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Create New Group</h2>
+          <h2 className="text-2xl font-semibold text-white">
+            Create New Group
+          </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-neutral-400 hover:text-neutral-200"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-neutral-300 mb-2">
               Group Name
             </label>
             <input
@@ -58,26 +74,26 @@ export default function CreateGroupModal({ currentUser, onClose, onGroupCreated 
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 rounded-md bg-neutral-900 border border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-700 focus:border-neutral-700"
               placeholder="e.g., Weekend Trip, Apartment"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-neutral-300 mb-2">
               Description (optional)
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+              className="w-full px-4 py-2.5 rounded-md bg-neutral-900 border border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-700 focus:border-neutral-700 resize-none"
               placeholder="What's this group for?"
             />
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <div className="px-4 py-3 rounded-md text-sm border border-neutral-800 bg-black text-rose-400">
               {error}
             </div>
           )}
@@ -85,9 +101,9 @@ export default function CreateGroupModal({ currentUser, onClose, onGroupCreated 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transform hover:scale-[1.02]"
+            className="w-full py-2.5 rounded-md bg-white text-black font-medium hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {loading ? 'Creating...' : 'Create Group'}
+            {loading ? "Creating..." : "Create Group"}
           </button>
         </form>
       </div>

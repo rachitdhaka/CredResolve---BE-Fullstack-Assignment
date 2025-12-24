@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import type { User, Group } from '../types';
-import { apiService } from '../services/api';
-import CreateGroupModal from '../components/CreateGroupModal';
-import CreateUserModal from '../components/CreateUserModal';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import type { User, Group } from "../types";
+import { apiService } from "../services/api";
+import CreateGroupModal from "../components/CreateGroupModal";
+import CreateUserModal from "../components/CreateUserModal";
 
 interface GroupsProps {
   currentUser: User | null;
@@ -25,7 +25,7 @@ export default function Groups({ currentUser, onUserCreated }: GroupsProps) {
       const fetchedGroups = await apiService.getGroups();
       setGroups(fetchedGroups);
     } catch (error) {
-      console.error('Failed to load groups:', error);
+      console.error("Failed to load groups:", error);
     } finally {
       setLoading(false);
     }
@@ -39,19 +39,31 @@ export default function Groups({ currentUser, onUserCreated }: GroupsProps) {
   if (!currentUser) {
     return (
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-          <div className="w-20 h-20 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        <div className="rounded-lg border border-neutral-800 bg-neutral-900 p-12 text-center">
+          <div className="w-16 h-16 rounded-md border border-neutral-800 bg-neutral-900 flex items-center justify-center mx-auto mb-6">
+            <svg
+              className="w-8 h-8 text-neutral-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Create an Account</h2>
-          <p className="text-gray-600 mb-8 text-lg">
+          <h2 className="text-3xl font-semibold text-white mb-4">
+            Create an Account
+          </h2>
+          <p className="text-neutral-400 mb-8 text-lg">
             You need an account to create and manage groups.
           </p>
           <button
             onClick={() => setShowUserModal(true)}
-            className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-600 hover:to-purple-700 shadow-md hover:shadow-lg transform hover:scale-105"
+            className="px-6 py-2 rounded-md bg-white text-black font-medium hover:opacity-90"
           >
             Create Account
           </button>
@@ -73,27 +85,39 @@ export default function Groups({ currentUser, onUserCreated }: GroupsProps) {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-2 border-neutral-800 border-t-white"></div>
       </div>
     );
   }
 
-  const userGroups = groups.filter(g => g.members.includes(currentUser.id));
+  const userGroups = groups.filter((g) => g.members.includes(currentUser.id));
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Your Groups</h1>
-          <p className="text-gray-600 mt-1">Manage and track shared expenses</p>
+          <h1 className="text-3xl font-semibold text-white">Your Groups</h1>
+          <p className="text-neutral-400 mt-1">
+            Manage and track shared expenses
+          </p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-600 hover:to-purple-700 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center space-x-2"
+          className="px-4 py-2 rounded-md bg-white text-black font-medium hover:opacity-90 flex items-center space-x-2"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 4v16m8-8H4"
+            />
           </svg>
           <span>Create Group</span>
         </button>
@@ -106,53 +130,99 @@ export default function Groups({ currentUser, onUserCreated }: GroupsProps) {
             <Link
               key={group.id}
               to={`/groups/${group.id}`}
-              className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-transparent hover:border-indigo-200 group"
+              className="rounded-lg border border-neutral-800 hover:bg-neutral-900 transition-colors p-6 group bg-black"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <div className="w-12 h-12 rounded-md border border-neutral-800 bg-neutral-900 flex items-center justify-center">
+                  <svg
+                    className="w-6 h-6 text-neutral-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
                   </svg>
                 </div>
-                <div className="flex items-center space-x-1 text-gray-500">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                <div className="flex items-center space-x-1 text-neutral-500">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                    />
                   </svg>
-                  <span className="text-sm font-medium">{group.members.length}</span>
+                  <span className="text-sm font-medium">
+                    {group.members.length}
+                  </span>
                 </div>
               </div>
-              
-              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+
+              <h3 className="text-xl font-semibold text-white mb-2">
                 {group.name}
               </h3>
-              
-              <p className="text-gray-600 text-sm line-clamp-2 mb-4">
-                {group.description || 'No description'}
+
+              <p className="text-neutral-400 text-sm line-clamp-2 mb-4">
+                {group.description || "No description"}
               </p>
-              
-              <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                <span className="text-xs text-gray-500">
+
+              <div className="flex items-center justify-between pt-4 border-t border-neutral-800">
+                <span className="text-xs text-neutral-500">
                   Created {new Date(group.createdAt).toLocaleDateString()}
                 </span>
-                <svg className="w-5 h-5 text-gray-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="w-5 h-5 text-neutral-500 group-hover:text-neutral-300 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
             </Link>
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-md p-12 text-center">
-          <div className="w-20 h-20 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        <div className="rounded-lg border border-neutral-800 p-12 text-center bg-neutral-900">
+          <div className="w-16 h-16 rounded-md border border-neutral-800 bg-neutral-900 flex items-center justify-center mx-auto mb-6">
+            <svg
+              className="w-8 h-8 text-neutral-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
             </svg>
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">No Groups Yet</h3>
-          <p className="text-gray-600 mb-6">Create your first group to start tracking expenses!</p>
+          <h3 className="text-2xl font-semibold text-white mb-2">
+            No Groups Yet
+          </h3>
+          <p className="text-neutral-400 mb-6">
+            Create your first group to start tracking expenses!
+          </p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-600 hover:to-purple-700 shadow-md hover:shadow-lg transform hover:scale-105"
+            className="px-6 py-2 rounded-md bg-white text-black font-medium hover:opacity-90"
           >
             Create Your First Group
           </button>
