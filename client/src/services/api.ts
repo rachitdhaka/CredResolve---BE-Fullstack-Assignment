@@ -188,7 +188,7 @@ class ApiService {
 
   // Expenses
   async addExpense(
-    data: any
+    data: CreateExpenseData
   ): Promise<{ expense: Expense; updatedBalances: Balance[] }> {
     const response = await fetch(`${API_BASE_URL}/expenses`, {
       method: "POST",
@@ -232,6 +232,13 @@ class ApiService {
       throw new Error(error.error?.message || "Failed to create settlement");
     }
     return response.json();
+  }
+
+  // Alias used by UI components
+  async recordSettlement(
+    data: CreateSettlementData
+  ): Promise<{ settlement: Settlement; remainingBalance: number }> {
+    return this.createSettlement(data);
   }
 
   async getGroupSettlements(groupId: string): Promise<Settlement[]> {
