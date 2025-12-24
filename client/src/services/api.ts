@@ -16,7 +16,7 @@ import type {
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
-  "http://credresolve-be-fullstack-assignment.onrender.com/api";
+  "https://credresolve-be-fullstack-assignment.onrender.com/api";
 
 class ApiService {
   private token: string | null = null;
