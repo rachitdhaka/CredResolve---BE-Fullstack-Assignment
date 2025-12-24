@@ -20,22 +20,25 @@ PowerShell -NoProfile ./start-dev.ps1
 ```
 
 This will:
-- Start the backend server on `http://localhost:3000`
+
+- Start the backend server on `http://credresolve-be-fullstack-assignment.onrender.com`
 - Start the frontend dev server on `http://localhost:5173`
 - Automatically open the frontend in your browser
 
 ### Option 2: Run Individually
 
 **Terminal 1 - Server:**
+
 ```bash
 cd splitwise/server
 npm install
 npm start
 ```
 
-Server will be available at `http://localhost:3000`
+Server will be available at `http://credresolve-be-fullstack-assignment.onrender.com`
 
 **Terminal 2 - Client:**
+
 ```bash
 cd splitwise/client
 npm install
@@ -55,6 +58,7 @@ The app uses JWT-based authentication:
 5. Users can switch between accounts via the header dropdown
 
 ### Register
+
 ```bash
 POST /api/auth/register
 Content-Type: application/json
@@ -67,6 +71,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "token": "eyJhbGc...",
@@ -82,12 +87,14 @@ Content-Type: application/json
 ## ✨ Features
 
 ### Group Management
+
 - Create groups for different purposes (trips, apartments, projects)
 - Add members to groups
 - View group details and member list
 - Auto-add creator as first member
 
 ### Expense Tracking
+
 - Record expenses with three split methods:
   - **EQUAL**: Splits evenly among participants
   - **EXACT**: Specify exact amounts for each person
@@ -97,12 +104,14 @@ Content-Type: application/json
 - Delete expenses and recalculate balances
 
 ### Balance Tracking
+
 - Track who owes whom in each group
 - View simplified settlements (minimal payment plan)
 - See net balance across all groups
 - Real-time balance updates
 
 ### Settlement
+
 - Record payments to settle up
 - Automatically reduces corresponding balances
 - View settlement history
@@ -111,11 +120,13 @@ Content-Type: application/json
 ## 🛣️ API Routes
 
 ### Authentication
+
 - `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user  
+- `POST /api/auth/login` - Login user
 - `GET /api/auth/me` - Get current user (requires token)
 
 ### Groups
+
 - `POST /api/groups` - Create group
 - `GET /api/groups` - List all groups
 - `GET /api/groups/:id` - Get group details
@@ -125,11 +136,13 @@ Content-Type: application/json
 - `GET /api/groups/:id/balances/simplified` - Get simplified settlements
 
 ### Expenses
+
 - `POST /api/expenses` - Create expense with splits
 - `GET /api/expenses/:id` - Get expense details
 - `DELETE /api/expenses/:id` - Delete expense
 
 ### Settlements
+
 - `POST /api/settlements` - Record a settlement payment
 - `GET /api/settlements/:id` - Get settlement details
 - `GET /api/settlements/groups/:groupId` - Get group settlements
@@ -144,6 +157,7 @@ PowerShell -NoProfile ./run-tests.ps1
 ```
 
 This will:
+
 1. Clear the database
 2. Start the server
 3. Run comprehensive E2E tests
@@ -152,6 +166,7 @@ This will:
 ## 🔧 Technology Stack
 
 **Backend:**
+
 - Node.js + Express.js
 - SQLite (sql.js) - pure JS, file-persisted
 - JWT (jsonwebtoken)
@@ -159,16 +174,18 @@ This will:
 - UUID for IDs
 
 **Frontend:**
+
 - React 19 with Hooks
 - TypeScript
 - Vite (fast dev server & build)
 - React Router v7
 - Tailwind CSS v4 (styling)
-        │   ├── groupRoutes.js
-        │   ├── expenseRoutes.js
-        │   └── settlementRoutes.js
-        └── test-scenarios.js # Test scenarios
-```
+  │ ├── groupRoutes.js
+  │ ├── expenseRoutes.js
+  │ └── settlementRoutes.js
+  └── test-scenarios.js # Test scenarios
+
+````
 
 ## Getting Started
 
@@ -181,23 +198,26 @@ This will:
 1. Navigate to the server directory:
 ```bash
 cd server
-```
+````
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the server:
+
 ```bash
 npm start
 ```
 
-The server will start on `http://localhost:3000`
+The server will start on `http://credresolve-be-fullstack-assignment.onrender.com`
 
 ### Running Tests
 
 Execute the test scenarios:
+
 ```bash
 node src/test-scenarios.js
 ```
@@ -205,12 +225,14 @@ node src/test-scenarios.js
 ## API Endpoints
 
 ### Users
+
 - `POST /api/users` - Create a new user
 - `GET /api/users` - Get all users
 - `GET /api/users/:id` - Get user by ID
 - `GET /api/users/:id/balances` - Get user's balances across all groups
 
 ### Groups
+
 - `POST /api/groups` - Create a new group
 - `GET /api/groups` - Get all groups
 - `GET /api/groups/:id` - Get group by ID
@@ -220,11 +242,13 @@ node src/test-scenarios.js
 - `GET /api/groups/:id/balances/simplified` - Get simplified balances
 
 ### Expenses
+
 - `POST /api/expenses` - Add a new expense
 - `GET /api/expenses/:id` - Get expense details
 - `DELETE /api/expenses/:id` - Delete expense
 
 ### Settlements
+
 - `POST /api/settlements` - Record a settlement
 - `GET /api/settlements/:id` - Get settlement details
 - `GET /api/settlements/groups/:groupId` - Get group settlements
@@ -233,90 +257,110 @@ node src/test-scenarios.js
 
 ```javascript
 // 1. Create users
-const alice = await fetch('http://localhost:3000/api/users', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: 'Alice', email: 'alice@example.com' })
-}).then(r => r.json());
+const alice = await fetch(
+  "http://credresolve-be-fullstack-assignment.onrender.com/api/users",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: "Alice", email: "alice@example.com" }),
+  }
+).then((r) => r.json());
 
-const bob = await fetch('http://localhost:3000/api/users', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: 'Bob', email: 'bob@example.com' })
-}).then(r => r.json());
+const bob = await fetch(
+  "http://credresolve-be-fullstack-assignment.onrender.com/api/users",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: "Bob", email: "bob@example.com" }),
+  }
+).then((r) => r.json());
 
 // 2. Create group
-const group = await fetch('http://localhost:3000/api/groups', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    name: 'Friends',
-    description: 'Friend expenses',
-    createdBy: alice.id
-  })
-}).then(r => r.json());
+const group = await fetch(
+  "http://credresolve-be-fullstack-assignment.onrender.com/api/groups",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: "Friends",
+      description: "Friend expenses",
+      createdBy: alice.id,
+    }),
+  }
+).then((r) => r.json());
 
 // 3. Add Bob to group
-await fetch(`http://localhost:3000/api/groups/${group.id}/members`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ userId: bob.id })
-});
+await fetch(
+  `http://credresolve-be-fullstack-assignment.onrender.com/api/groups/${group.id}/members`,
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId: bob.id }),
+  }
+);
 
 // 4. Add expense (Alice pays for dinner)
-const expense = await fetch('http://localhost:3000/api/expenses', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    groupId: group.id,
-    description: 'Dinner',
-    totalAmount: 100,
-    paidBy: alice.id,
-    splitType: 'EQUAL',
-    splits: [
-      { userId: alice.id },
-      { userId: bob.id }
-    ]
-  })
-}).then(r => r.json());
+const expense = await fetch(
+  "http://credresolve-be-fullstack-assignment.onrender.com/api/expenses",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      groupId: group.id,
+      description: "Dinner",
+      totalAmount: 100,
+      paidBy: alice.id,
+      splitType: "EQUAL",
+      splits: [{ userId: alice.id }, { userId: bob.id }],
+    }),
+  }
+).then((r) => r.json());
 
 // 5. Check balances
-const balances = await fetch(`http://localhost:3000/api/groups/${group.id}/balances`)
-  .then(r => r.json());
+const balances = await fetch(
+  `http://credresolve-be-fullstack-assignment.onrender.com/api/groups/${group.id}/balances`
+).then((r) => r.json());
 console.log(balances); // Bob owes Alice $50
 ```
 
 ## Design Decisions
 
 ### 1. Split Type Implementation
+
 - **Equal**: Simple division, handles rounding
 - **Exact**: Validates sum equals total amount
 - **Percentage**: Converts percentages to amounts, validates sum is 100%
 
 ### 2. Balance Tracking
+
 - Direct balance updates when expenses are added
 - Bidirectional balance consolidation (A owes B $50 + B owes A $30 = A owes B $20)
 - Net balance calculation for users across all groups
 
 ### 3. Balance Simplification Algorithm
+
 Uses a greedy algorithm:
+
 1. Calculate net balance for each user
 2. Separate into debtors (negative) and creditors (positive)
 3. Match largest debtor with largest creditor
 4. Minimize total number of transactions
 
 **Example**:
+
 ```
 Before: A→B: $20, A→C: $30, B→C: $10 (3 transactions)
 After: A→C: $50 (1 transaction)
 ```
 
 ### 4. Data Storage
+
 - In-memory storage using Maps for O(1) lookups
 - Easily extensible to database (MongoDB, PostgreSQL)
 - Service layer separates business logic from storage
 
 ### 5. Error Handling
+
 - Comprehensive validation at multiple levels
 - Descriptive error messages
 - Consistent error response format
@@ -324,6 +368,7 @@ After: A→C: $50 (1 transaction)
 ## Architecture Highlights
 
 ### Service Layer Architecture
+
 - **UserService**: User management and validation
 - **GroupService**: Group operations and member management
 - **BalanceService**: Balance calculations and simplification
@@ -331,11 +376,13 @@ After: A→C: $50 (1 transaction)
 - **SettlementService**: Settlement recording and validation
 
 ### Model Validation
+
 - Models contain their own validation logic
 - Services perform business rule validation
 - Routes handle HTTP-specific validation
 
 ### Balance Consistency
+
 - All balance updates go through BalanceService
 - Balances automatically recalculated when expenses are deleted
 - Settlement validation prevents invalid state
@@ -343,6 +390,7 @@ After: A→C: $50 (1 transaction)
 ## Future Enhancements
 
 ### Phase 2
+
 - [ ] Database persistence (MongoDB/PostgreSQL)
 - [ ] User authentication (JWT)
 - [ ] Currency support and conversion
@@ -351,6 +399,7 @@ After: A→C: $50 (1 transaction)
 - [ ] Export functionality (CSV, PDF)
 
 ### Phase 3
+
 - [ ] Mobile app integration
 - [ ] Real-time updates (WebSocket)
 - [ ] Payment gateway integration
@@ -366,6 +415,7 @@ After: A→C: $50 (1 transaction)
 ## Testing
 
 The application includes comprehensive test scenarios covering:
+
 - Equal split calculations
 - Exact amount split validation
 - Percentage split validation
@@ -390,4 +440,5 @@ Rachit
 ---
 
 **Note**: This is a demonstration/assignment project. For production use, add proper database, authentication, and security measures.
+
 # CredResolve---BE-Fullstack-Assignment
